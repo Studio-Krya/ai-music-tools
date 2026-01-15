@@ -106,8 +106,14 @@ AudioCraft is a PyTorch library for deep learning research on audio generation. 
 
 **Cria uma melodia através de um prompt**
 
-```bash
-uv run krya audiocraft music-gen [-o,--output] {nome}.wav [-m,--model] {modelo} "Sua prompt" 
+```sh
+uv run krya audiocraft musicgen [-o,--output] {nome}.wav [-m,--model] {modelo} [-d,--duration] {duracao_segundos} "Sua prompt" 
+```
+
+exemplo
+
+```sh
+uv run krya audiocraft musicgen --output demo.wav -m facebook/musicgen-medium -d 10 "A vibe lo-fi in desert"
 ```
 
 #### Modelos relevantes
