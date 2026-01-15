@@ -1,0 +1,15 @@
+[project]
+name = "ai-music-models"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "==3.11.14"
+dependencies = [
+    "audiocraft",
+    "audioldm",
+    "tts>=0.22.0",
+]
+
+[tool.uv.sources]
+audioldm = { git = "https://github.com/haoheliu/AudioLDM.git" }
+audiocraft = { git = "https://github.com/facebookresearch/audiocraft.git" }
