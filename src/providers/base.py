@@ -27,7 +27,8 @@ def run_command(
         pass
     
     try:
-        result = subprocess.run(command, check=False)
+        # SHould suppress output
+        result = subprocess.run(command, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return result.returncode
     except Exception as e:
         print(f"Error running command: {e}", file=sys.stderr)

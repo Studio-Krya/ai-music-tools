@@ -18,6 +18,11 @@ class AudiocraftService:
             self._processors[model_name] = AutoProcessor.from_pretrained(model_name)
         return self._models[model_name], self._processors[model_name]
 
+    def unload_model(self, model_name: str):
+        if model_name in self._models:
+            del self._models[model_name]
+            del self._processors[model_name]
+
     def generate_music(self, params: MusicGenParams) -> Path:
         model, processor = self.initialize_model(params.model)
 
