@@ -9,13 +9,8 @@ def cli():
     pass
 
 
-@cli.group()
-def generate():
-    """Generate audio using various providers."""
-    pass
 
-
-generate.add_command(audiocraft_group, name="audiocraft")
+cli.add_command(audiocraft_group, name="audiocraft")
 
 if __name__ == "__main__":
     cli()

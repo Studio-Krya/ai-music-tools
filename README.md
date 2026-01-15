@@ -10,7 +10,7 @@
 
 **Windows**
 
-Installing on Windows
+Instalando no Windows
 
 ```powershell
 # Install uv
@@ -37,12 +37,21 @@ uv run tts --model_info_by_name tts_models/pt/cv/vits
 
 ### CoquiTTS
 
-Text-to-Speech generation
-
 [Github Repo](https://github.com/coqui-ai/TTS)
 
-[Doc](https://github.com/coqui-ai/TTS?tab=readme-ov-file#command-line-tts)
+🐸TTS is a library for advanced Text-to-Speech generation.
 
+🚀 Pretrained models in +1100 languages.
+
+🛠️ Tools for training new models and fine-tuning existing models in any language.
+
+📚 Utilities for dataset analysis and curation.
+
+
+
+
+#### Comandos
+[Documentação](https://github.com/coqui-ai/TTS?tab=readme-ov-file#command-line-tts)
 
 **Comando Base**
 
@@ -50,38 +59,58 @@ Text-to-Speech generation
 uv run tts [...params]
 ```
 
-**Modelos relevantes**
+**Lista os modelos**
+
+```bash
+uv run tts --list_models
+```
+
 
 ### AudioLDM
 
-Generate speech, sound effects, music and beyond
-
 [Github Repo](https://github.com/haoheliu/AudioLDM)
 
-[Doc](https://github.com/haoheliu/AudioLDM?tab=readme-ov-file#commandline-usage)
+Generate speech, sound effects, music and beyond.
 
-**Comando Base**
+- Text-to-Audio Generation: Generate audio given text input.
+- Audio-to-Audio Generation: Given an audio, generate another audio that contain the same type of sound.
+- Text-guided Audio-to-Audio Style Transfer: Transfer the sound of an audio into another one using the text description.
+
+
+
+#### Comandos
+
+[Documentação](https://github.com/haoheliu/AudioLDM?tab=readme-ov-file#commandline-usage)
+
+**Comando base**
 
 ```bash
 uv run audioldm [...params]
 ```
 
-**Modelos relevantes**
+#### Modelos relevantes
+
+- `audioldm-s-full`
+- `audioldm-m-full`
 
 
 ### Audiocraft
-Library for audio processing and generation with deep learning
 
 [Github Repo](https://github.com/facebookresearch/audiocraft)
 
+AudioCraft is a PyTorch library for deep learning research on audio generation. AudioCraft contains inference and training code for two state-of-the-art AI generative models producing high-quality audio: AudioGen and MusicGen.
 
-**Comando Base**
+
+
+#### Comandos
+
+**Cria uma melodia através de um prompt**
 
 ```bash
-uv run audio
+uv run krya audiocraft music-gen [-o,--output] {nome}.wav [-m,--model] {modelo} "Sua prompt" 
 ```
 
-**Modelos relevantes**
+#### Modelos relevantes
 
 - `facebook/musicgen-small`: 300M model, text to music only - 🤗 Hub
 - `facebook/musicgen-medium`: 1.5B model, text to music only - 🤗 Hub
