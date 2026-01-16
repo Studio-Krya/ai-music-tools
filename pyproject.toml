@@ -22,6 +22,7 @@ dependencies = [
     "litequeue>=0.9",
     "numpy>=1.26.4",
     "accelerate>=1.12.0",
+    "greenlet>=3.3.0",
 ]
 
 [project.scripts]

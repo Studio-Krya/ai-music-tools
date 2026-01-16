@@ -65,10 +65,10 @@ class AudiocraftService:
 
         sampling_rate = model.config.audio_encoder.sampling_rate
         
-        if torch.cuda.is_available():
-            data = audio_values.detach().to(torch.float32).clamp(-1, 1).cpu().numpy()
-        else:
-            data = audio_values[0, 0].numpy()
+        #if torch.cuda.is_available():
+        data = audio_values.detach().to(torch.float32).clamp(-1, 1).cpu().numpy()
+        #else:
+            #data = audio_values[0, 0].numpy()
 
         scipy.io.wavfile.write(output_path, rate=sampling_rate, data=data)
 
