@@ -155,11 +155,9 @@ function TrackItemImpl({ track, isPlaying, onPlay, onClick, onDelete }: TrackIte
                     <p className="text-xs text-muted-foreground line-clamp-1">{track.prompt}</p>
                 </div>
 
-                {currentStatus === "processing" && (
-                    <div className=" w-full">
-                        <Progress value={track.jobs[0].progress} className="h-1.5" />
-                    </div>
-                )}
+                <div className=" w-full">
+                    <Progress value={track.jobs[0].progress} className="h-1.5" />
+                </div>
             </div>
         </div>
     )

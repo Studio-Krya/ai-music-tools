@@ -15,6 +15,18 @@ enum Models {
   large = "facebook/musicgen-large",
 }
 
+const CATEGORIES = [
+  { id: "1", name: "Ambient", color: "#6B7280" },
+  { id: "2", name: "Electronic", color: "#3B82F6" },
+  { id: "3", name: "Cinematic", color: "#8B5CF6" },
+  { id: "4", name: "Lo-Fi", color: "#F59E0B" },
+  { id: "5", name: "Jazz", color: "#10B981" },
+  { id: "6", name: "Hip-Hop", color: "#EF4444" },
+  { id: "7", name: "Grime", color: "#EF4444" },
+  { id: "8", name: "Rap", color: "#EF4444" },
+  { id: "9", name: "R&B", color: "#EF4444" },
+]
+
 const modelOptions = Object.values(Models).map((model) => ({
   label: model,
   value: model,
@@ -76,7 +88,7 @@ export const GenerationForm = observer(function GenerationForm() {
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
                 <SelectContent>
-                  {store.categories.map((cat) => (
+                  {CATEGORIES.map((cat) => (
                     <SelectItem key={cat.id} value={cat.name} className="text-sm">
                       {cat.name}
                     </SelectItem>

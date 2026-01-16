@@ -15,7 +15,6 @@ const defaultCategories: Category[] = [
 
 export class TrackStore {
   tracks: Track[] = []
-  categories: Category[] = defaultCategories
   activeCategory: string | null = null
   isGenerating = false
 
@@ -27,10 +26,7 @@ export class TrackStore {
   async hydrate() {
     if (typeof window === "undefined") return
 
-    const [storedTracks, storedCategories] = await Promise.all([
-      fetch(`http://localhost:8000/tracks`).then(res => res.json()),
-      fetch(`http://localhost:8000/categories`).then(res => res.json().then(data => data.categories)),
-    ])
+    const storedTracks = await fetch(`http://localhost:8000/tracks`).then(res => res.json())
 
     if (storedTracks) {
       this.tracks = storedTracks.map((track: Track) => ({
@@ -39,9 +35,6 @@ export class TrackStore {
       }))
     }
 
-    if (storedCategories) {
-      this.categories = storedCategories
-    }
   }
 
   // Persist to localStorage
@@ -51,17 +44,6 @@ export class TrackStore {
     // localStorage.setItem(CATEGORIES_KEY, JSON.stringify(this.categories))
   }
 
-  addCategory(name: string, color = "#6B7280") {
-    const newCategory: Category = {
-      id: Date.now().toString(),
-      name,
-      count: 0,
-      color,
-    }
-    this.categories.push(newCategory)
-    this.persist()
-    return newCategory.id
-  }
 
   getCategoryPercentages() {
     const categoryMap = new Map<string, number>()
@@ -75,38 +57,7 @@ export class TrackStore {
       percentage: count / this.tracks.length * 100,
     }))
   }
-  updateCategory(id: string, name: string, color?: string) {
-    const category = this.categories.find((c) => c.id === id)
-    if (category) {
-      const oldName = category.name
-      category.name = name
-      if (color) category.color = color
-
-      // Update tracks with old category name
-      this.tracks.forEach((track) => {
-        if (track.category === oldName) {
-          track.category = name
-        }
-      })
-
-      this.persist()
-    }
-  }
-
-  deleteCategory(id: string) {
-    const category = this.categories.find((c) => c.id === id)
-    if (category) {
-      // Move tracks to "Uncategorized" or delete them
-      this.tracks.forEach((track) => {
-        if (track.category === category.name) {
-          track.category = "Uncategorized"
-        }
-      })
-      this.categories = this.categories.filter((c) => c.id !== id)
-      this.persist()
-    }
-  }
-
+ 
   getTrackById(id: string): Track | undefined {
     return this.tracks.find((t) => t.id === id)
   }
@@ -119,46 +70,9 @@ export class TrackStore {
     }
   }
 
-  // updateTrackCategory(id: string, category: string) {
-  //   const track = this.tracks.find((t) => t.id === id)
-  //   if (track) {
-  //     // Decrement old category count
-  //     const oldCategory = this.categories.find((c) => c.name === track.category)
-  //     if (oldCategory && oldCategory.count > 0 && track.status === "success") {
-  //       oldCategory.count--
-  //     }
-
-  //     // Increment new category count
-  //     const newCategory = this.categories.find((c) => c.name === category)
-  //     if (newCategory && track.status === "success") {
-  //       newCategory.count++
-  //     }
-
-  //     track.category = category
-  //     this.persist()
-  //   }
-  // }
-
-  // setActiveCategory(category: string | null) {
-  //   this.activeCategory = category
-  // }
-
   get filteredTracks() {
     return this.tracks
   }
-
-  // get generatingTrack() {
-  //   return this.tracks.find((t) => t.status === "in_progress")
-  // }
-
-  // get completedTracksCount() {
-  //   return this.tracks.filter((t) => t.status === "success").length
-  // }
-
-  // get totalCategoryCount() {
-  //   return this.categories.reduce((acc, c) => acc + c.count, 0)
-  // }
-
   
   async generate(prompt: string, category: string, duration: number, model: string) {
     if (this.isGenerating) return
@@ -176,7 +90,7 @@ export class TrackStore {
 
   async addTrack(prompt: string, category: string, duration: number, model: string) {
 
-    const name = uniqueNamesGenerator({ dictionaries: [colors, adjectives, adjectives, animals, languages], separator: ' ', length: 5, style: 'capital' });
+    const name = uniqueNamesGenerator({ dictionaries: [adjectives, colors, adjectives, animals], separator: ' ', length: 4, style: 'capital' });
     const response = await fetch("http://localhost:8000/tracks", {
       method: "POST",
       body: JSON.stringify({ prompt: prompt, duration, category, name, model, provider: 'audiocraft' }),
