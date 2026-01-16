@@ -14,6 +14,14 @@ dependencies = [
     "click>=8.0.0",
     "transformers>=4.57.5",
     "torch==2.6",
+    "tqdm>=4.67.1",
+    "alembic>=1.18.1",
+    "fastapi>=0.128.0",
+    "sqlmodel>=0.0.31",
+    "aiosqlite>=0.22.1",
+    "litequeue>=0.9",
+    "numpy>=1.26.4",
+    "accelerate>=1.12.0",
 ]
 
 [project.scripts]
