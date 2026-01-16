@@ -43,7 +43,7 @@ class TrackProcessor:
         params = MusicGenParams(
             prompt=track.prompt,
             duration=track.duration,
-            model="facebook/musicgen-small",
+            model=track.model,
             on_progress=on_progress
         )   
 

@@ -10,7 +10,7 @@ from .model import TrackJob, TrackJobStatus
 from .dtos import CreateTrackJobDTO
 
 from src.app.tracks.jobs.dtos import TrackWorkerPayload
-
+from datetime import datetime
 class TrackJobService:
 
     def __init__(self, db: AsyncSession):
@@ -34,14 +34,15 @@ class TrackJobService:
         return await self.repository.create(job)
     
     async def update(self, job: TrackJob) -> TrackJob:
+        job.updated_at = datetime.now()     
         return await self.repository.update(job)
     
     async def update_job_progress(self, jobId: str, progress: float):
         print(f"Updating job progress: {jobId} | {progress}")
 
         job = await self.repository.get_one_by_id(jobId)
-        print(f"Job: {job}")
-        job
+
+        job.updated_at = datetime.now()
         job.progress = progress
 
         if progress == 100:
