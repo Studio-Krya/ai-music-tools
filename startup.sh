@@ -14,3 +14,4 @@ if [ "$has_command" == "not found" ]; then
         touch ~/.bash_profile
     fi
 fi
+clear
