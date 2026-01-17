@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USER=$USERNAME
-FROM="/d/models/"
+FROM="/d/models/."
 TO="/c/Users/$USER"
 
 echo "Pulling latest changes from git"
